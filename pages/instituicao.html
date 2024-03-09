@@ -66,12 +66,29 @@
       <section class="events">
         <div class="shadow">
           <div class="container-card-event">
+            <script>
+              fetch("../scripts/eventos_escola.json")
+                .then((response) => response.json())
+                .then((response) => {
+                  const containerCardEvent = document.querySelector(
+                    ".container-card-event"
+                  );
 
-            
-            <div class="card-event">
-              <img src="../images/paisagem01.jpg" alt="photo">
-            </div>
+                  response.forEach(function (event) {
+                    const newCard = document.createElement("div");
+                    newCard.setAttribute("class", "card-event");
 
+                    const image = document.createElement("img");
+                    image.setAttribute("src", event.img.src);
+                    image.setAttribute("alt", event.img.alt);
+                    image.setAttribute("title", event.title);
+
+                    newCard.appendChild(image);
+                    containerCardEvent.appendChild(newCard);
+                  });
+                })
+                .catch((error) => console.log(`Houve um ERRO: ${error}`));
+            </script>
           </div>
         </div>
       </section>
@@ -84,31 +101,45 @@
         </p>
 
         <div class="container-cards">
-        
           <div class="card">
             <h3>Salas climatizadas</h3>
-            <hr>
-            <p>O IPDDF dispõe de salas climatizadas, que ajudam no conforto do aluno e que ao mesmo influênciam no bom desempenho do aluno, dentro da sala de aulas.</p>
-          </div>
-        
-          <div class="card">
-            <h3>Salas climatizadas</h3>
-            <hr>
-            <p>O IPDDF dispõe de salas climatizadas, que ajudam no conforto do aluno e que ao mesmo influênciam no bom desempenho do aluno, dentro da sala de aulas.</p>
-          </div>
-        
-          <div class="card">
-            <h3>Salas climatizadas</h3>
-            <hr>
-            <p>O IPDDF dispõe de salas climatizadas, que ajudam no conforto do aluno e que ao mesmo influênciam no bom desempenho do aluno, dentro da sala de aulas.</p>
-          </div>
-        
-          <div class="card">
-            <h3>Salas climatizadas</h3>
-            <hr>
-            <p>O IPDDF dispõe de salas climatizadas, que ajudam no conforto do aluno e que ao mesmo influênciam no bom desempenho do aluno, dentro da sala de aulas.</p>
+            <hr />
+            <p>
+              O IPDDF dispõe de salas climatizadas, que ajudam no conforto do
+              aluno e que ao mesmo influênciam no bom desempenho do aluno,
+              dentro da sala de aulas.
+            </p>
           </div>
 
+          <div class="card">
+            <h3>Salas climatizadas</h3>
+            <hr />
+            <p>
+              O IPDDF dispõe de salas climatizadas, que ajudam no conforto do
+              aluno e que ao mesmo influênciam no bom desempenho do aluno,
+              dentro da sala de aulas.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Salas climatizadas</h3>
+            <hr />
+            <p>
+              O IPDDF dispõe de salas climatizadas, que ajudam no conforto do
+              aluno e que ao mesmo influênciam no bom desempenho do aluno,
+              dentro da sala de aulas.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Salas climatizadas</h3>
+            <hr />
+            <p>
+              O IPDDF dispõe de salas climatizadas, que ajudam no conforto do
+              aluno e que ao mesmo influênciam no bom desempenho do aluno,
+              dentro da sala de aulas.
+            </p>
+          </div>
         </div>
       </section>
     </main>
