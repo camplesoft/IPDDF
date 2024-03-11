@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contacte-nos</title>
+
+    <!-- LINK PARA ESTILIZAÇÃO -->
+    <link rel="stylesheet" href="styles/contato.css" />
+
+    <!-- LINK PARA INSERÇÃO DO HEADER E DO FOOTER -->
+    <script src="../scripts/main.js" type="module" defer></script>
+
+    <!-- LINK PARA FONT AWESOME -->
+    <script
+      src="https://kit.fontawesome.com/db4a85bd76.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- LINK PARA BOOTSTRAP -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <div class="container-img">
+          <img src="images/IPPDF_Sol.jpeg" />
+        </div>
+
+        <form class="container-inputs">
+          <h2>Contacte-nos</h2>
+
+          <input
+            type="text"
+            name="input-text"
+            id="input-text"
+            placeholder="Seu nome completo"
+            required
+          />
+          <br />
+          <input
+            type="email"
+            name="input-email"
+            id="input-email"
+            placeholder="Seu e-mail"
+            required
+          />
+          <br />
+          <textarea
+            cols="34"
+            rows="5"
+            placeholder="Escreva uma mensagem"
+          ></textarea>
+          <br />
+
+          <button>Submeter</button>
+        </form>
+
+        <div class="info">
+          <div class="cards">
+            <h2>Telefone</h2>
+
+            <ul>
+              <li>
+                <i class="fa-solid fa-phone"></i>
+                <span>
+                  Unitel -
+                  <a href="tel:+244 949 096 404">+244 949 096 404</a></span
+                >
+              </li>
+
+              <li>
+                <i class="fa-solid fa-phone"></i>
+                <span>
+                  Movicel -
+                  <a href="tel:+244 992 600 465">+244 992 600 465</a></span
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="cards">
+            <h2>Horário de Atendimento</h2>
+            <ul>
+              <li>
+                <i class="fa-regular fa-clock"></i>
+                <span>Segunda à sexta</span>
+                <span>8h00 - 17h45</span>
+              </li>
+
+              <li>
+                <i class="fa-regular fa-clock"></i>
+                <span>Sábado</span>
+                <span>8h00 - 13h00</span>
+              </li>
+
+              <li>
+                <i class="fa-regular fa-clock"></i>
+                <span>Domingos e Feriados</span>
+                <span>Fechado</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="cards">
+            <h2>Localização</h2>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3942.2518480532513!2d13.2822879!3d-8.8561295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1a51f17ccf6bd1db%3A0xecc4d26652142421!2sInstituto%20Polit%C3%A9cnico%20Dom%20Dami%C3%A3o%20Franklin%20N%C2%BA8028!5e0!3m2!1spt-PT!2spt!4v1710198053101!5m2!1spt-PT!2spt"
+              width="600"
+              height="450"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
