@@ -24,7 +24,7 @@ main {
     display: grid;
     align-content: center;
     justify-content: start;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 350px));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 380px));
     grid-auto-rows: auto;
 
     & .container-img {
