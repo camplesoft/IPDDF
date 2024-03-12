@@ -93,7 +93,7 @@ main {
     }
 
     & .info {
-      padding: 15px;
+      padding: 0 15px;
 
       & .cards {
         margin: 20px 0;
