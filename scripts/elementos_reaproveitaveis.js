@@ -8,7 +8,7 @@ class HTMLElement {
       this.siteTitle = "Instituto Politécnico Dom Damião Franklin";
 
       this.logo = {
-        src: "../images/logo.png",
+        src: "images/logo.png",
         alt: "logo-ipddf",
       };
       this.navBarLinks = [
