@@ -5,7 +5,7 @@ main {
   min-height: 100vh;
 
   & .hero {
-    height: 400px;
+    height: 85vh;
     width: 100%;
     display: flex;
     flex-flow: column nowrap;

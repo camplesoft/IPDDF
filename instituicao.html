@@ -74,28 +74,24 @@
       <section class="events">
         <div class="shadow">
           <div class="container-card-event">
-            <script>
-              fetch("../scripts/eventos_escola.json")
-                .then((response) => response.json())
-                .then((response) => {
-                  const containerCardEvent = document.querySelector(
-                    ".container-card-event"
-                  );
+            <script type="module">
+              import events from "./scripts/eventos_escola.js";
+              const containerCardEvent = document.querySelector(
+                ".container-card-event"
+              );
 
-                  response.forEach(function (event) {
-                    const newCard = document.createElement("div");
-                    newCard.setAttribute("class", "card-event");
+              events.forEach(function (event) {
+                const newCard = document.createElement("div");
+                newCard.setAttribute("class", "card-event");
 
-                    const image = document.createElement("img");
-                    image.setAttribute("src", event.img.src);
-                    image.setAttribute("alt", event.img.alt);
-                    image.setAttribute("title", event.title);
+                const image = document.createElement("img");
+                image.setAttribute("src", event.img.src);
+                image.setAttribute("alt", event.img.alt);
+                image.setAttribute("title", event.title);
 
-                    newCard.appendChild(image);
-                    containerCardEvent.appendChild(newCard);
-                  });
-                })
-                .catch((error) => console.log(`Houve um ERRO: ${error}`));
+                newCard.appendChild(image);
+                containerCardEvent.appendChild(newCard);
+              });
             </script>
           </div>
         </div>
