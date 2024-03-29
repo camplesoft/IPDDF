@@ -1,0 +1,88 @@
+@charset "UTF-8";
+
+@import url("https://fonts.googleapis.com/css2?family=Salsa&display=swap");
+
+:root {
+  --default-color: #502314;
+  --secundary-color: #f5ebdc;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--default-color);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  list-style-position: inside;
+  text-decoration: none;
+
+  &:not(i) {
+    font-family: "Salsa", cursive !important;
+  }
+}
+
+body {
+  & header {
+    border-bottom: 2px solid #e0d7c9;
+    background-color: var(--default-color);
+
+    & h1, & i {
+      color: var(--secundary-color) !important;
+    }
+
+    & > .nav-bar > a:hover {
+      color: var(--secundary-color) !important;
+    }
+
+    & .nav-bar .body-nav-bar a:hover {
+      color: var(--default-color) !important;
+    }
+  }
+
+  & main h1 {
+    color: var(--default-color);
+    font-size: 2.5rem;
+  }
+
+  & h2 {
+    color: var(--default-color);
+    font-size: 2rem;
+  }
+
+  & p {
+    text-align: justify;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 15px 0px;
+  }
+
+  & strong {
+    font-size: 14px;
+    color: var(--default-color);
+    font-weight: bold;
+  }
+
+  & .shadow {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  & footer {
+    background-color: var(--default-color);
+
+    a:hover i {
+      color: var(--default-color) !important;
+    }
+  }
+}

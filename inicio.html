@@ -1,52 +1,153 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt_PT">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IPDDF</title>
-    <style>
-      * {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-        font-family: Arial, Helvetica, sans-serif;
-      }
-
-      body {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        min-height: 100vh;
-        background-color: black;
-      }
-
-      .box {
-        width: 300px;
-        height: 200px;
-        border: 2px solid white;
-
-        & h1 {
-          color: skyblue;
-        }
-
-        & p {
-          color: royalblue;
-        }
-      }
-
-      
-    </style>
+    <script
+      src="https://kit.fontawesome.com/a7383e4b5d.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="styles/inicio.css" />
+    <script src="scripts/main.js" type="module" defer></script>
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon" />
   </head>
   <body>
-    <div class="box">
-      <h1>Olá mundo</h1>
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugiat
-        incidunt odit deleniti suscipit molestias qui, veritatis quam nobis
-        placeat facilis eveniet repudiandae quos id earum nesciunt ex cupiditate
-        reprehenderit neque.
-      </p>
-    </div>
+    <main>
+      <div class="hero">
+        <div class="shadow">
+          <div class="text">
+            <h1>Nossa escola</h1>
+            <br />
+            <p>
+              O <strong>IPDDF</strong> uma escola privada de ensino católico que
+              tem como padroeiro o ex-prelado angolano, e arcebispo de
+              <strong>Luanda - Dom Damião António Franklin.</strong>
+            </p>
+            <br />
+            <p>
+              A <strong>Escola Dom Damião Franklin</strong> é uma instituição
+              educativa que tem como tarefa a formação integral do homem.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-cards">
+        <div class="card">
+          <img src="images/page-inicio/missao.png" alt="img" />
+          <br />
+          <p class="titulo">Missão</p>
+          <br />
+          <p>
+            Proporcionar aos alunos e principalmente ao seu educando uma
+            educação de excelência fundamentada na doutrina social da igreja,
+            com vista a atingir homens profissionais a altura das actuais
+            exigências da sociedade e da igreja.
+          </p>
+        </div>
+        <div class="card">
+          <img src="images/page-inicio/visao.png" alt="img" />
+          <br />
+          <p class="titulo">Visão</p>
+          <br />
+          <p>
+            Almejar ser referência do ensino em Angola com propostas
+            educacionais inovadoras.
+          </p>
+        </div>
+        <div class="card">
+          <img src="images/page-inicio/valores.png" alt="img" />
+          <br />
+          <p class="titulo">Valores</p>
+          <br />
+          <p>
+            Cultivar dentro do nosso ambiente escolar os valores da amizade, do
+            respeito, da verdade, da justiça, da solidariedade e da disciplina.
+          </p>
+        </div>
+      </div>
+
+      <section class="classes">
+        <div class="shadow">
+          <h1>Nossas classes</h1>
+          <br />
+          <p>
+            A nossa instituição está preparada para lecionar o seu filho(a).
+          </p>
+          <br />
+          <br />
+          <div class="container-cards">
+            <div class="card">
+              <h2>Iº ciclo</h2>
+              <br />
+              <ul>
+                <li>7ª Classe</li>
+                <li>8ª classe</li>
+                <li>9ª Classe</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h2>IIº ciclo</h2>
+              <br />
+              <ul>
+                <li>10ª Classe</li>
+                <li>11ª classe</li>
+                <li>12ª Classe</li>
+                <li>13ª Classe</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cursos">
+        <h1>Nossas áreas</h1>
+        <br />
+        <div class="container-cards">
+          <div class="card">
+            <div class="header">INFORMÁTICA</div>
+            <div class="Img">
+              <span>Técnico de Informática</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="header">INFORMÁTICA</div>
+            <div class="Img">
+              <span>Técnico de Informática</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="header">INFORMÁTICA</div>
+            <div class="Img">
+              <span>Técnico de Informática</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="header">INFORMÁTICA</div>
+            <div class="Img">
+              <span>Técnico de Informática</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="header">INFORMÁTICA</div>
+            <div class="Img">
+              <span>Técnico de Informática</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="header">INFORMÁTICA</div>
+            <div class="Img">
+              <span>Técnico de Informática</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   </body>
 </html>

@@ -1,0 +1,298 @@
+@import url("reset.css");
+
+/*Main Stlye */
+
+main {
+  width: 100%;
+  height: 100%;
+
+  overflow-x: hidden;
+}
+
+main > .hero {
+  width: 100%;
+  height: 90vh;
+  background: #f3aa228e url("../images/page-inicio/paisagem01.jpg") no-repeat
+    center center fixed;
+  background-size: cover;
+
+  transition-duration: 0.5s;
+}
+
+.hero > .shadow {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  transition-duration: 0.5s;
+}
+
+.shadow p {
+  margin: 0;
+  text-indent: 10px;
+  color: white;
+  font-weight: 300;
+}
+
+@media screen and (min-width: 770px) {
+  main > .hero > .shadow > .text {
+    width: 700px;
+    margin: 70px 50px;
+    transition-duration: 0.5s;
+  }
+
+  .hero > .shadow {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    text-align: start;
+    transition-duration: 0.5s;
+  }
+}
+
+/*Icons Style*/
+
+main .container-cards {
+  margin: 20px 0;
+  padding: 10px;
+
+  width: 100%;
+  min-height: 50vh;
+
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 350px));
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  justify-content: center;
+
+  background-color: white;
+
+  transition-duration: 0.5s;
+}
+
+main > .container-cards {
+  align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
+}
+
+.container-cards > .card {
+  padding: 10px;
+  text-align: center;
+  transition-duration: 0.5s;
+}
+
+.container-cards > .card > img {
+  width: 80px;
+}
+
+.container-cards > .card > .titulo {
+  font-weight: 700;
+  font-size: 1.2rem;
+  opacity: 1;
+}
+
+.container-cards > .card > p {
+  text-align: center;
+  font-size: 1rem;
+  opacity: 0.7;
+}
+
+/*CLasses Style*/
+
+main > .classes {
+  background: #f3aa228e url("../images/page-inicio/grupo_de_pessoas.jpg")
+    no-repeat center center fixed;
+  background-size: cover;
+  width: 100%;
+  min-height: 90vh;
+}
+
+.classes > .shadow {
+  min-height: 90vh;
+  padding: 10px;
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+  background-color: #f3aa228e;
+}
+
+.classes > .shadow > h1 {
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.445);
+  text-align: center;
+  margin: 10px 0;
+  transition-duration: 0.5s;
+}
+
+.classes > .shadow > h1:hover {
+  font-size: 3rem;
+}
+
+.shadow > p {
+  font-size: 1rem;
+  text-align: center;
+}
+
+.classes > .shadow > .container-cards {
+  grid-auto-rows: 230px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
+  background-color: transparent;
+}
+
+.classes .shadow .container-cards > .card {
+  height: 100%;
+  width: 90%;
+
+  padding: 20px;
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  border-radius: 10px;
+  outline: 2px solid #f2b138;
+
+  transition: all 0.3s ease-in-out;
+
+  backdrop-filter: blur(30px);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.329);
+}
+
+.classes .shadow .container-cards > .card:hover {
+  width: 100%;
+  color: #f2b138;
+  background-color: white;
+}
+
+.classes .shadow .container-cards > .card > h2 {
+  font-weight: 800;
+  font-size: 1.6rem;
+}
+
+.classes .shadow .container-cards > .card ul {
+  list-style: none;
+}
+
+.classes .shadow .container-cards > .card li {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+@media screen and (min-width: 680px) {
+  .classes .shadow .container-cards > .card {
+    width: 90%;
+  }
+
+  .classes .shadow .container-cards > .card:hover {
+    width: 100%;
+    color: #f2b138;
+    background-color: white;
+  }
+}
+
+/*Cursos Style*/
+
+main > .cursos {
+  width: 100%;
+  min-height: 50vh;
+  padding: 20px;
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+
+  background-color: white;
+}
+
+main > .cursos > h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #e09c1c;
+}
+
+.cursos > .container-cards {
+  gap: 20px;
+  grid-auto-rows: 250px;
+  width: 100%;
+  min-height: 50vh;
+  padding: 10px;
+}
+
+main > .cursos > .container-cards > .card {
+  padding: 0;
+  width: 100%;
+  height: 100%;
+
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.418);
+  border-radius: 10px;
+
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+
+  grid-template-rows: 50px 1fr;
+  grid-template-columns: 100%;
+}
+
+main > .cursos .container-cards .card > .header {
+  background-color: white;
+  color: #e09c1c;
+
+  font-size: 1.3rem;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+
+  padding: 15px;
+  overflow: hidden;
+}
+
+main > .cursos .container-cards .card > .Img {
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.445) url("../images/page-inicio/paisagem01.jpg")
+    no-repeat center center scroll;
+  background-size: cover;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+  position: relative;
+  @media (min-width: 680px) {
+    & span {
+      top: -60%;
+      left: 50%;
+
+      transform: translate(-50%, 50%);
+
+      position: absolute;
+    }
+
+    &:hover span {
+      top: 50%;
+      left: 50%;
+      transition: transform 0.3s ease-in-out;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+main > .cursos > .container-cards span {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+}

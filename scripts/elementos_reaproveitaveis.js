@@ -29,8 +29,8 @@ class HTMLElement {
           href: "noticias/inicio.html",
         },
         {
-          text: "secretaria",
-          href: "secretaria.html",
+          text: "cantina",
+          href: "cantina/inicio.html",
         },
       ];
     }
@@ -178,7 +178,7 @@ class Footer extends HTMLElement {
 
     this.footer.innerHTML += `
       <div class="foot-footer">
-        <p>2024 <a href="camplesoft@gmail.com">CampleSoft</a> | Todos direitos reservados</p>
+        <p>2024 <a href="mailto:camplesoft@gmail.com">CampleSoft</a> | Todos direitos reservados</p>
       </div>
     `;
 
