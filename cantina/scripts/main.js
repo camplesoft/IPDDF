@@ -15,7 +15,7 @@ array.forEach(function(element) {
     },
     {
       text: "Todos produtos",
-      href: "todos_produtos.html",
+      href: "catalogo.html",
     },
     {
       text: "Escola",

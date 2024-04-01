@@ -1,43 +1,38 @@
 @import url("reset.css");
 
 body {
+  width: 100%;
   background-color: var(--secundary-color);
+
   & main {
-    & .hero {
-      padding: 20px;
-      margin: 30px auto 0 auto;
-
-      width: 100%;
+    width: 100%;
+    & .slider {
+      width: 95%;
       height: auto;
+      margin: 10px auto;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      
+      border-radius: 20px;
       overflow: hidden;
 
-      & .wrapper {
+      background-color: skyblue;
+
+      & .slides {
         width: 100%;
         height: auto;
-
         display: flex;
-        flex-flow: row nowrap;
-        align-items: center;
 
-        border-radius: 5px;
-        overflow: hidden;
+        transition: all 0.3s ease-in-out;
 
+        background-color: rebeccapurple;
 
-        & img {
-            width: 30%;
-            object-fit: cover;
+        & .slide {
+          width: 100%;
         }
       }
-
     }
 
     & .container-cards {
+      padding: 20px;
       display: grid;
       gap: 10px;
       grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
@@ -49,11 +44,75 @@ body {
       }
 
       & .card {
-        border-radius: 8px;
-
-        background-color: rosybrown;
-
+        border-radius: 5px;
         overflow: hidden;
+
+        background: var(--default-color) no-repeat center center scroll;
+        background-size: cover;
+
+        &:nth-child(1) {
+          background-image: url("../images/coleções/bebidas.jpg");
+        }
+
+        &:nth-child(2) {
+          background-image: url("../images/coleções/bolachas.jpg");
+        }
+
+        &:nth-child(3) {
+          background-image: url("../images/coleções/doces.jpg");
+        }
+
+        &:nth-child(4) {
+          background-image: url("../images/coleções/refeições.jpg");
+        }
+
+        & .shadow {
+          transition: all 0.3s ease-in-out;
+          padding: 30px;
+          background-color: rgba(0, 0, 0, 0.3);
+
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          flex-flow: column nowrap;
+
+          box-shadow: inset 0px -40px 20px 0px rgba(0, 0, 0, 0.541);
+
+          &:hover {
+            & {
+              background-color: rgba(0, 0, 0, 0.5);
+            }
+
+            & button {
+              color: white;
+              background-color: transparent;
+            }
+          }
+
+          & button {
+            padding: 8px 0px;
+            width: 100px;
+
+            border-radius: 3px;
+            background-color: white;
+
+            cursor: pointer;
+            outline: 1px solid white;
+            transition: all 0.3s ease-in-out;
+          }
+
+          & .description {
+            & h2 {
+              color: white;
+              font-weight: 200;
+            }
+
+            & span {
+              color: rgba(255, 255, 255, 0.801);
+              font-weight: 200;
+            }
+          }
+        }
       }
     }
   }
