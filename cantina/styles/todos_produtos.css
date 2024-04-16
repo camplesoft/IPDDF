@@ -1,0 +1,127 @@
+@import url("reset.css");
+
+:root {
+  --color-text: #555451;
+}
+
+body {
+  & main {
+    padding: 60px 10px;
+    width: 100%;
+    margin-bottom: 100px;
+    background-color: rgb(252, 247, 247);
+
+    overflow: hidden;
+
+    & .container-products {
+      width: 100%;
+
+      display: grid;
+      gap: 10px;
+      align-content: center;
+      justify-content: center;
+
+      grid-template-columns: repeat(auto-fit, minmax(160px, 250px));
+      grid-template-rows: 400px;
+
+      & .product {
+        position: relative;
+
+        width: 100%;
+        height: 100%;
+
+        display: grid;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+
+        grid-auto-columns: 100%;
+        grid-template-rows: 250px 1fr;
+
+        cursor: pointer;
+        border-radius: 8px;
+        box-shadow: 0px 10px 5px rgba(0, 0, 0, 0.096);
+        background-color: white;
+
+        & .product-img {
+          width: 100%;
+          height: 100%;
+
+          & img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+            object-position: center;
+          }
+        }
+
+        & .product-description {
+          position: relative;
+
+          padding: 10px;
+          width: 100%;
+          height: 100%;
+
+          & h2 {
+            color: #282828;
+            font-size: 17px;
+            font-weight: 400;
+            text-transform: capitalize;
+          }
+
+          & .price {
+            & .current-price {
+              font-weight: 400;
+              color: #0fb930;
+            }
+
+            & .comparison-price {
+              font-weight: 400;
+              color: #686868;
+              text-decoration: line-through;
+            }
+          }
+
+          & .btn-add-product {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            height: 28px;
+            width: 28px;
+
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+
+            color: white;
+            border-radius: 50%;
+            background-color: var(--default-color);
+
+            &:hover {
+              transition: all 0.3s ease-in-out;
+              transform: rotate(90deg);
+              box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
+            }
+          }
+        }
+
+        & .discount {
+          padding: 5px;
+          position: absolute;
+          top: 10px;
+          left: 10px;
+
+          font-size: 11px;
+          text-align: center;
+
+          color: white;
+          border-radius: 6px;
+          background-color: var(--default-color);
+        }
+      }
+    }
+  }
+}

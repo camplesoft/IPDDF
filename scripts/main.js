@@ -1,4 +1,4 @@
-import { Header, Footer } from "./elementos_reaproveitaveis.js";
+import { Header, Footer } from "./header-footer.js";
 document.head.innerHTML +=
   '<link rel="stylesheet" href="styles/style_header_and_footer.css">';
 

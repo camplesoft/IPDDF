@@ -4,7 +4,7 @@
   padding: 0;
   margin: 0;
   font-size: 16px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   box-sizing: border-box;
   border: none;
   outline: none;
@@ -66,25 +66,39 @@ footer {
 header {
   padding: 6px 10px;
   height: 90px;
+  gap: 10px;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr 45px auto;
   grid-auto-rows: 1fr;
+
+  align-content: center;
+  justify-content: center;
   align-items: center;
   justify-items: center;
 
   @media (min-width: 800px) {
-    grid-template-columns: 80px 1fr !important;
-    column-gap: 20px;
+    &:has(.search-bar) {
+      grid-template-columns: 80px 1fr 1fr !important;
+      column-gap: 5px;
+    }
+
+    & {
+      grid-template-columns: 80px 1fr;
+      column-gap: 5px;
+    }
 
     & h1 {
       display: none;
     }
 
-    & i {
+    & i:not(.search-bar i, .cart) {
       display: none !important;
     }
 
     & > .nav-bar {
+      grid-row: 1 / -1;
+      grid-column: 2 / 3;
+
       align-self: center;
       justify-self: stretch;
 
@@ -112,6 +126,59 @@ header {
     }
   }
 
+  & .search-bar {
+
+    width: 90%;
+    max-width: 420px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    flex-flow: row nowrap;
+
+    border-radius: 25px;
+
+    position: relative;
+    overflow: hidden;
+
+    & input {
+      width: 100%;
+      height: 100%;
+      padding-left: 15px;
+
+      outline: none;
+      border: none;
+
+      font-size: 15px;
+    }
+
+    & i {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 50px;
+      height: 100%;
+
+      cursor: pointer;
+      border-radius: 25px;
+
+      color: white;
+      font-size: 14px;
+      background-color: rgb(43, 39, 36);
+
+      transition: all 0.3s ease-in-out;
+
+      position: absolute;
+      right: 0px;
+
+      &:hover {
+        width: 100px;
+        border-radius: 50px;
+      }
+    }
+  }
+
   & a img {
     height: 70px;
   }
@@ -129,6 +196,31 @@ header {
     font-size: 1.2rem;
   }
 
+  & .bag-shipping {
+    position: relative;    
+
+    & .quantity-of-products {
+      position: absolute;
+      top: -10px;
+      right: -18px;
+
+      height: 25px;
+      width: 25px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+      border-radius: 50%;
+      color: var(--default-color);
+      background-color: white;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.068);
+
+      
+      overflow: hidden;
+    }
+  }
+
   & > .nav-bar {
     display: none;
   }
@@ -137,6 +229,8 @@ header {
     position: absolute;
     top: 0;
     right: 0;
+    z-index: 1;
+
     width: 100%;
     min-height: 100vh;
 
@@ -150,7 +244,7 @@ header {
     display: none;
 
     & .nav-bar {
-      z-index: 1;
+      z-index: 2;
       width: 100%;
       max-width: 414px;
       height: 100vh;
@@ -226,10 +320,11 @@ header {
         & button {
           padding: 10px;
           color: white;
-          width: 300px;
+          width: 90%;
+          max-width: 300px;
           border-radius: 6px;
           box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
-          background-color: var(--cor02);
+          background-color: var(--default-color);
         }
       }
 
@@ -432,7 +527,6 @@ footer {
     }
   }
 }
-
 
 @keyframes enter-on-the-right {
   0% {
