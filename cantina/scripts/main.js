@@ -1,15 +1,11 @@
 import { Header, Footer } from "../../scripts/header-footer-store.js";
 import { animation1 } from "./animações/search-bar.js";
-import { products, collections } from "./produtos.js";
+import { products, collections, coupons } from "./produtos.js";
 import { Cart } from "./cart.js";
 
-let quantityOfProducts = 0;
-
-insertHeaderAndFooter();
-showProducts();
-performSearchButtonAnimation();
 connectEventListeners();
-updateCart();
+insertHeaderAndFooter();
+performSearchButtonAnimation();
 
 // HEADER E FOOTER
 function insertHeaderAndFooter() {
@@ -42,41 +38,25 @@ function insertHeaderAndFooter() {
   });
 }
 
-// PRODUTOS
-function showProducts() {
-  const productsContainer = document.querySelector(".container-products");
+function connectEventListeners() {
+  const elementsMinimizeResume = [
+    document.getElementById("icon-minimize-resume-cart"),
+    document.querySelector(".head-resume-cart"),
+  ];
 
-  products.forEach(function (product, id) {
-    productsContainer.innerHTML += `
-  
-    <div class="product" id="${id}">
-      <span class="discount">
-        ${Number(product.discount).toFixed(0)}%
-      </span>
+  if (elementsMinimizeResume) {
+    elementsMinimizeResume.forEach((element) => {
+      if (element) element.addEventListener("click", minimizeResume);
+    });
 
-      <div class="product-img">
-        <img src="${product.img.src}" alt="${product.img.alt}" />
-      </div>
-
-      <div class="product-description">
-        <h2 class="product-name">${product.name}</h2>
-
-        <div class="price">
-          <span class="current-price">KZ ${Number(product.currentPrice).toFixed(
-            2
-          )}</span>
-          <span class="comparison-price">KZ ${Number(product.pastPrice).toFixed(
-            2
-          )}</span>
-        </div>
-
-        <i class="fa-solid fa-plus btn-add-product"></i>
-      </div>
-      
-    </div>
-  
-  `;
-  });
+    if (elementsMinimizeResume[0]) {
+      if (elementsMinimizeResume[0].id === "icon-minimize-resume-cart") {
+        elementsMinimizeResume[0].addEventListener("click", (pointer) => {
+          pointer.stopPropagation();
+        });
+      }
+    }
+  }
 }
 
 // ANIMAÇÕES
@@ -94,23 +74,10 @@ function performSearchButtonAnimation() {
   animation1(sugestionsToPlaceholder, "input-search");
 }
 
-function connectEventListeners() {
-  const btnsAddProduct = [...document.querySelectorAll(".btn-add-product")];
+function minimizeResume() {
+  const divResumeCart = document.querySelector(".resume-cart");
 
-  btnsAddProduct.forEach(function (btn) {
-    btn.addEventListener("click", function (pointerEvent) {
-      const id = pointerEvent.target.parentNode.parentNode.id;
-      quantityOfProducts++;
-      updateCart();
-    });
-  });
-
+  divResumeCart.classList.toggle("minimized");
 }
 
-function updateCart() {
-  const cart = document.querySelector(".quantity-of-products");
-  cart.innerHTML = quantityOfProducts;
-}
-
-const carrinho = new Cart(products);
-// localStorage.setItem('cadrt-cantina-ipddf-powered-by-camplesoft-2024', [1, 2, 4]);
+const carrinho = new Cart(products, coupons);

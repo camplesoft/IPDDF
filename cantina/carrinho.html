@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seu Carrinho</title>
+
+    <link rel="shortcut icon" href="../images/logo.png" type="image/x-icon" />
+
+    <link rel="stylesheet" href="styles/carrinho.css" />
+
+    <script type="module" src="scripts/main.js" defer></script>
+    <script
+      src="https://kit.fontawesome.com/db4a85bd76.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <main>
+      <div class="no-products-on-cart">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <h2>Seu carrinho está vazio</h2>
+        <a href="todos_produtos.html"><button>Veja nossos produtos</button></a>
+      </div>
+
+      <div class="cart-of-products">
+        <h2>Carrinho</h2>
+
+        <div class="grid-products">
+          <div class="product">
+            <div class="img-side">
+              <img src="images/produtos/agua-e-sal.png" alt="" />
+            </div>
+            <div class="description-side">
+              <h3 class="product-name">Camiseta Pima Peruana</h3>
+              <p class="product-variants">Branco / M / Com logo</p>
+              <div class="price">
+                <span class="current-price">Kz 97,90</span>
+                <span class="comparison-price">Kz 189,90</span>
+              </div>
+            </div>
+            <div class="controls">
+              <div class="container-quantity-product">
+                <input
+                  type="button"
+                  value="-"
+                  id="minus"
+                  class="quantity-buttons"
+                />
+
+                <input
+                  type="number"
+                  name="quantity"
+                  id="quantity-00"
+                  value="1"
+                  min="1"
+                  max="20"
+                />
+
+                <input
+                  type="button"
+                  value="+"
+                  id="plus"
+                  class="quantity-buttons"
+                />
+              </div>
+
+              <span class="btn-remove-product">Remover</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="invoice">
+          <div class="container-total-price">
+            <span>total</span>
+            <span class="total-of-cart">Kz 0,00</span>
+          </div>
+
+          <div class="container-btns">
+            <button class="btns-skip-to-checkout">finalizar compra</button>
+            <a href="todos_produtos.html">
+              <i class="fa-solid fa-chevron-left"></i>
+              <span>continuar comprando</span>
+            </a>
+          </div>
+
+          <div class="container-credit-cards">
+            <span>pagamento seguro e rápido</span>
+
+            <div class="container-image-cards">
+              <img src="images/cartões/ipddf-card.png" alt="ipddf-card" />
+              <img src="images/cartões/payment-by-hand.png" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

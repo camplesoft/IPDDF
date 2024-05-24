@@ -77,8 +77,8 @@ header {
   justify-items: center;
 
   @media (min-width: 800px) {
-    &:has(.search-bar) {
-      grid-template-columns: 80px 1fr 1fr !important;
+    &:has(.search-bar, .bag-shipping) {
+      grid-template-columns: 80px 1fr 1fr 80px !important;
       column-gap: 5px;
     }
 
@@ -91,7 +91,7 @@ header {
       display: none;
     }
 
-    & i:not(.search-bar i, .cart) {
+    & i:not(.search-bar i, .cart, .bag-shipping) {
       display: none !important;
     }
 

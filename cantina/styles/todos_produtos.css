@@ -21,8 +21,12 @@ body {
       align-content: center;
       justify-content: center;
 
-      grid-template-columns: repeat(auto-fit, minmax(160px, 250px));
+      grid-template-columns: repeat(auto-fit, minmax(160px, 240px));
       grid-template-rows: 400px;
+
+      @media (min-width: 300px) and (max-width: 515px) {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 160px));
+      }
 
       & .product {
         position: relative;

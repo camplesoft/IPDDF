@@ -58,6 +58,10 @@ class Header extends HTMLElement {
       `;
     this.header.appendChild(searchBar);
 
+    const cartLink = document.createElement("a");
+    cartLink.setAttribute('href', 'carrinho.html');
+
+
     const cartIcon = document.createElement("i");
     cartIcon.setAttribute("class", "fa-solid fa-bag-shopping bag-shipping");
     const quantityOfProducts = document.createElement("span");
@@ -65,7 +69,8 @@ class Header extends HTMLElement {
     quantityOfProducts.innerHTML = 0;
 
     cartIcon.appendChild(quantityOfProducts);
-    this.header.appendChild(cartIcon);
+    cartLink.appendChild(cartIcon);
+    this.header.appendChild(cartLink);
 
     const btnOpenNavBar = document.createElement("i");
     btnOpenNavBar.setAttribute("class", "fa-solid fa-bars");

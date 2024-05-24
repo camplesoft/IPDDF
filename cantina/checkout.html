@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>checkout</title>
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="styles/checkout.css" />
+
+    <script type="module" src="scripts/main.js" defer></script>
+    <script
+      src="https://kit.fontawesome.com/a7383e4b5d.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <div class="container-cards">
+      <div class="resume-cart">
+        <div class="head-resume-cart">
+          <h2>
+            Resumo da compra (<span class="quantity-of-products">5</span>)
+          </h2>
+
+          <span class="total-of-cart"></span>
+          <i class="fa-solid fa-chevron-up" id="icon-minimize-resume-cart"></i>
+        </div>
+
+        <div class="grid-products"></div>
+
+        <div class="coupon-side">
+          <label for="input-coupon">Tem um cupom?</label>
+
+          <div class="coupon-form">
+            <div class="input-field">
+              <label for="input-coupon">
+                <i class="fa-solid fa-ticket"></i>
+              </label>
+
+              <input
+                type="text"
+                name="input-coupon"
+                id="input-coupon"
+                placeholder="Código do cupom"
+              />
+            </div>
+
+            <button class="btn-add-coupon">adicionar</button>
+
+            <span class="name-error" id="coupon-name-error"></span>
+          </div>
+        </div>
+
+        <div class="invoice">
+          <div class="invoice-field">
+            <span class="description">Produtos</span>
+            <span class="value quantity-of-products">00</span>
+          </div>
+          <div class="invoice-field">
+            <span class="description">Descontos</span>
+            <span class="value total-discount">Kz 0,00</span>
+          </div>
+          <div class="invoice-field">
+            <span class="description">Total</span>
+            <span class="value total-of-cart">Kz 0,00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="id">
+        <h1>
+          <i class="fa-solid fa-user"></i>
+          IDENTIFIQUE-SE
+        </h1>
+
+        <p>
+          Precisamos confirmar se é aluno da escola ou não, por favor preencha
+          os espaços vazios.
+        </p>
+
+        <form
+          action="https://formspree.io/f/xoqgbdov"
+          method="post"
+          id="formulario"
+        >
+          <div class="input-field">
+            <label for="name">Nome completo</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Digite o seu nome Completo"
+              required
+            />
+            <span class="name-error"></span>
+          </div>
+
+          <div class="input-field">
+            <label for="email">E-mail</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Seu e-mail"
+              required
+            />
+            <span class="name-error"></span>
+          </div>
+
+          <div class="input-field">
+            <label for="numero-de-estudante">Cartão de Estudante</label>
+            <input
+              type="number"
+              name="numero-de-estudante"
+              id="numero-de-estudante"
+              placeholder="00000"
+              max="99999"
+              min="10000"
+              required
+            />
+            <span class="name-error"></span>
+          </div>
+
+          <p class="payment-form-title">Formas de pagamento:</p>
+
+          <div class="payment-forms">
+            <label for="cash"
+              ><input type="checkbox" name="cash" id="cash" />Cash
+              <img src="images/cartões/payment-by-hand.png" alt=""
+            /></label>
+            <label for="ipddfCard"
+              ><input type="checkbox" name="ipddfCard" id="ipddfCard" />Cartão
+              IPDDF <img src="images/cartões/ipddf-card.png" alt=""
+            /></label>
+          </div>
+
+          <div class="other-data">
+            <input type="text" name="cart-json" id="cart-json" />
+            <input type="text" name="cart-total" id="cart-total" min="1" />
+            <input type="text" name="total-discount" class="total-discount" />
+          </div>
+
+          <button id="checkout-button">
+            comprar
+            <i class="fa-solid fa-angle-right"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer">
+      <img src="images/cartões/secure-payment.png" alt="img segura" />
+    </div>
+  </body>
+</html>
