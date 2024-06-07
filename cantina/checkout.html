@@ -79,7 +79,7 @@
         </p>
 
         <form
-          action="https://formspree.io/f/xoqgbdov"
+          action=""
           method="post"
           id="formulario"
         >
@@ -125,19 +125,20 @@
 
           <div class="payment-forms">
             <label for="cash"
-              ><input type="checkbox" name="cash" id="cash" />Cash
+              ><input type="checkbox" name="cash" id="cash" class="payment-gateways" checked />Cash
               <img src="images/cartões/payment-by-hand.png" alt=""
             /></label>
             <label for="ipddfCard"
-              ><input type="checkbox" name="ipddfCard" id="ipddfCard" />Cartão
+              ><input type="checkbox" name="ipddfCard" id="ipddfCard" class="payment-gateways" />Cartão
               IPDDF <img src="images/cartões/ipddf-card.png" alt=""
             /></label>
           </div>
 
           <div class="other-data">
-            <input type="text" name="cart-json" id="cart-json" />
-            <input type="text" name="cart-total" id="cart-total" min="1" />
-            <input type="text" name="total-discount" class="total-discount" />
+            <input type="text" name="Json do carrinho" id="cart-json" />
+            <input type="text" name="Total do carrinho" id="cart-total" min="1" />
+            <input type="text" name="Total de descontos" class="total-discount" />
+            <input type="text" name="Cupons aplicados" id="applied-coupons">
           </div>
 
           <button id="checkout-button">

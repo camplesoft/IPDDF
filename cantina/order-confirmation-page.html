@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compra realizada com sucesso!</title>
+
+    <script
+      src="https://kit.fontawesome.com/a7383e4b5d.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="scripts/main.js" type="module" defer></script>
+
+    <link rel="stylesheet" href="styles/order-confirmation-page.css" />
+    <link rel="shortcut icon" href="../images/logo.png" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="head">
+      <i class="fa-regular fa-circle-check"></i>
+      <h1>Obrigado pela sua compra</h1>
+    </div>
+
+    <div class="container-data">
+      <table>
+        <thead>
+          <th>Campos</th>
+          <th>Valores</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Número de estudante</td>
+            <td id="student-number">#####</td>
+          </tr>
+
+          <tr>
+            <td>Nome Completo</td>
+            <td id="fullname">#####</td>
+          </tr>
+
+          <tr>
+            <td>Email</td>
+            <td id="email">#####@#####.com</td>
+          </tr>
+
+          <tr>
+            <td>Cupons</td>
+            <td id="total-discount-of-coupons">0.00 Kz</td>
+          </tr>
+
+          <tr>
+            <td>Formas de pagamento</td>
+            <td id="payment-gateways">#####, #####</td>
+          </tr>
+
+          <tr>
+            <td>Data da compra</td>
+            <td id="purchase-date">##/##/####</td>
+          </tr>
+
+          <tr>
+            <td>Total</td>
+            <td id="total-of-cart">0.00 Kz</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="sale-products">
+        <div class="head">
+          <p>
+            <span class="quantity-of-purchased-products">0</span>
+            <span>item(s)</span>
+          </p>
+          <hr />
+        </div>
+        <div class="grid-products-after-sale">
+          
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

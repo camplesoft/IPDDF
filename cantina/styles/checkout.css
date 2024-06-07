@@ -554,7 +554,7 @@ body {
         }
 
         & .other-data {
-          /* display: none; */
+          display: none;
           padding: 10px;
           border: 1.5px solid gray;
           background-color: rgb(240, 240, 240);

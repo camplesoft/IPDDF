@@ -2,18 +2,16 @@
 import { Notification } from "./message-box.js";
 import { CouponManager } from "./produtos.js";
 
-/* 
-  DESAPLICAR CUPOM QUE EXIGEM VALOR MÍNIMO DE APLICAÇÃO
-  */
-
 class Cart {
   constructor(products, coupons) {
     const self = this;
+    this.date = new Date();
     this.total = 0;
+    this.currentYear = this.date.getFullYear();
     this.products = [];
     this.discounts = [];
+    this.saleCompleted = false;
     this.totalDiscount = 0;
-    this.couponAdded = [];
     this.coupons = coupons;
     this.originalProducts = products;
     this.availableDiscounts = coupons;
@@ -56,6 +54,7 @@ class Cart {
   }
 
   showData() {
+    const appliedCoupons = document.getElementById("applied-coupons");
     const totalDiscount = [...document.querySelectorAll(".total-discount")];
     const inputTotalBox = document.getElementById("cart-total");
     const inputCartJson = document.getElementById("cart-json");
@@ -67,8 +66,12 @@ class Cart {
 
     if (inputCartJson) {
       inputCartJson.value = localStorage.getItem(
-        "cart-cantina-ipddf-powered-by-camplesoft-2024"
+        "cart-cantina-ipddf-powered-by-camplesoft-" + this.currentYear
       );
+    }
+
+    if (appliedCoupons) {
+      appliedCoupons.value = JSON.stringify(this.discounts);
     }
 
     if (totalDiscount.length > 0) {
@@ -108,8 +111,17 @@ class Cart {
       if (this.discounts.length === 0) {
         this.total = this.total;
       } else {
-        this.discounts.forEach((percentage) => {
-          const currentDiscount = this.total * (percentage / 100);
+        this.discounts.forEach((coupon, index) => {
+          const removeCoupon = (index) => {
+            this.discounts.splice(index, 1);
+            return 0;
+          };
+
+          const currentDiscount =
+            this.total >= coupon.usageRule.minValue
+              ? this.total * (coupon.discountPercentage / 100)
+              : removeCoupon(index);
+
           this.totalDiscount += currentDiscount;
           this.total -= currentDiscount;
         });
@@ -137,7 +149,7 @@ class Cart {
       window.location.pathname === "/cantina/checkout.html"
     ) {
       window.location.assign(
-        "http://127.0.0.1:5501/cantina/todos_produtos.html"
+        "http://camplesoft.github.io/ipddf/cantina/todos_produtos.html"
       );
     }
 
@@ -145,6 +157,7 @@ class Cart {
   }
 
   connectEventListeners() {
+    const saleDataForm = document.getElementById("formulario");
     const btnCheckout = document.getElementById("checkout-button");
     const btnsSkipToCheckout = [
       ...document.querySelectorAll(".btns-skip-to-checkout"),
@@ -158,7 +171,7 @@ class Cart {
 
     btnsSkipToCheckout.forEach((btn) => {
       btn.addEventListener("click", () => {
-        window.location.assign("http://127.0.0.1:5501/cantina/checkout.html");
+        window.location.assign("http://camplesoft.github.io/ipddf/cantina/checkout.html");
       });
     });
 
@@ -213,13 +226,89 @@ class Cart {
     });
 
     if (btnCheckout) {
-      btnCheckout.addEventListener("click", () => {});
+      const self = this;
+
+      btnCheckout.addEventListener("click", function () {
+        const defaultPaymentGateways = [
+          ...document.querySelectorAll('.payment-gateways')
+        ].filter((paymentGateway) => {
+          return paymentGateway.id === 'cash';
+        });
+
+        defaultPaymentGateways[0].checked = true;
+        
+
+      });
+
+      saleDataForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        let formData = new FormData(saleDataForm);
+
+        fetch("https://formspree.io/f/xoqgbdov", {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json",
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              alert(
+                "Houve um problema ao realizar a compra. Por favor atualize a sua página para continuar!"
+              );
+            } else {
+              self.saveDetailsPurchase();
+              self.resetCart();
+              window.location.assign('http://camplesoft.github.io/ipddf/cantina/order-confirmation-page.html');
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert(
+              "Houve um problema ao realizar a compra. Por favor atualize a sua página para continuar!"
+            );
+          });
+      });
     }
+  }
+
+  saveDetailsPurchase() {
+    const timestampPurchase = Date.now();
+    const couponsAdded = this.couponManager.couponsAdded;
+    const cartJson = JSON.parse(localStorage.getItem(
+      "cart-cantina-ipddf-powered-by-camplesoft-" + this.currentYear
+    ));
+    const totalDiscount = this.totalDiscount;
+    const totalCart = this.total;
+    const paymentGateways = [];
+    [...document.querySelectorAll(".payment-gateways")].forEach((paymentGateway) => {
+      if (paymentGateway.checked)
+        paymentGateways.push(paymentGateway.id);
+    });
+    const clientName = document.getElementById("name").value;
+    const clientEmail = document.getElementById("email").value;
+    const studentNumber = document.getElementById("numero-de-estudante").value;
+
+
+    localStorage.setItem('purchase-details-'+this.currentYear, JSON.stringify({
+      timestampPurchase: timestampPurchase,
+      couponsAdded: couponsAdded,
+      cartJson: cartJson,
+      totalDiscount: totalDiscount,
+      totalCart: totalCart,
+      paymentGateways: paymentGateways,
+      clientName: clientName,
+      clientEmail: clientEmail,
+      studentNumber: studentNumber
+    }));
   }
 
   showProducts() {
     const productsContainer1 = document.querySelector(".container-products");
     const productsContainer2 = document.querySelector(".grid-products");
+    const productsContainer3 = document.querySelector(
+      ".grid-products-after-sale"
+    );
 
     if (productsContainer1) {
       productsContainer1.innerHTML = "";
@@ -318,7 +407,7 @@ class Cart {
   
                     <input type="number" name="quantity" class="input-quantity" id="quantity-${
                       product.id
-                    }" value="${Number(product.quantity)}" min="1">
+                    }" value="${Number(product.quantity)}" min="1" max="10">
   
                     <input type="button" value="+" id="plus" class="quantity-buttons">
                   </div>
@@ -333,18 +422,99 @@ class Cart {
         sectionCartOfProduct.style.display = "none";
       }
     }
+
+    if (productsContainer3) {
+      productsContainer3.innerHTML = "";
+
+      const detailsPurchase = JSON.parse(
+        localStorage.getItem("purchase-details-"+this.currentYear)
+      );
+
+      const fillTable = () => {
+        const date = new Date(detailsPurchase.timestampPurchase);
+        const studentNumber = document.getElementById('student-number');
+        const clientName = document.getElementById('fullname');
+        const clientEmail = document.getElementById('email');
+        const totalDiscount = document.getElementById('total-discount-of-coupons');
+        const paymentGateways = document.getElementById('payment-gateways');
+        const purchaseDate = document.getElementById('purchase-date');
+        const formattedDate = date.toLocaleString('pt-BR');
+        const totalCart = document.getElementById('total-of-cart');
+
+        studentNumber.innerHTML = detailsPurchase.studentNumber;
+        clientName.innerHTML = detailsPurchase.clientName;
+        clientEmail.innerHTML = detailsPurchase.clientEmail;
+        totalDiscount.innerHTML = Number(detailsPurchase.totalDiscount).toFixed(2) + " Kz";
+        paymentGateways.innerHTML = detailsPurchase.paymentGateways;
+        purchaseDate.innerHTML = formattedDate;
+        totalCart.innerHTML = Number(detailsPurchase.totalCart).toFixed(2) + " Kz";
+      }
+      fillTable();
+
+      const productCounters = [...document.querySelectorAll(".quantity-of-purchased-products")];
+      const products = detailsPurchase.cartJson;
+
+      const cart = products
+        ? products.filter((product) => {
+            return product.quantity > 0;
+          })
+        : [];
+
+      productCounters.forEach((element) => {
+        element.innerHTML = cart.length;
+      });
+
+      if (!(cart.length === 0)) {
+        cart.forEach(function (product) {
+          productsContainer3.innerHTML += `
+          <div class="product" id="${product.id}">
+            <div class="img-side">
+              <img
+                src="${product.img.src}"
+                alt="${product.img.alt}"
+              />
+            </div>
+            <div class="description-side">
+              <h3 class="product-name">${product.name}</h3>
+              <p class="product-variants">${product.collections}</p>
+              <p class="section-of-calculation">
+                <span class="product-quantity" title="quantidade">${
+                  product.quantity
+                } unidade(s)</span> x <span class="product-current-price" title="preço unitário">${Number(
+            product.currentPrice
+          ).toFixed(2)}kz</span>
+              </p>
+              <div class="price">
+                <span class="current-price">Kz ${Number(
+                  product.currentPrice * product.quantity
+                ).toFixed(2)}</span>
+                <span class="comparison-price" style=\"${
+                  Number(product.pastPrice) == Number(product.currentPrice)
+                    ? "display: none;"
+                    : ""
+                }\">Kz ${Number(product.pastPrice * product.quantity).toFixed(
+            2
+          )}</span>
+              </div>
+            </div>
+          </div>
+
+        `;
+        });
+      }
+    }
   }
 
   checkStorage() {
-    const currentYear = new Date().getFullYear();
-
     if (
       localStorage.getItem(
-        "cart-cantina-ipddf-powered-by-camplesoft-" + currentYear
+        "cart-cantina-ipddf-powered-by-camplesoft-" + this.currentYear
       )
     ) {
       this.products = JSON.parse(
-        localStorage.getItem("cart-cantina-ipddf-powered-by-camplesoft-2024")
+        localStorage.getItem(
+          "cart-cantina-ipddf-powered-by-camplesoft-" + this.currentYear
+        )
       );
       this.update();
     }
@@ -362,13 +532,13 @@ class Cart {
 
     if (this.couponManager.isValidCoupon(couponInput.value)) {
       couponNameError.innerHTML = "";
-      this.discounts.push( Number(
-        this.couponManager.applyDiscount(
-          this.total,
-          couponInput.value,
-          couponNameError
-        )
-      ));
+      const operation = this.couponManager.applyDiscount(
+        this.total,
+        couponInput.value,
+        couponNameError
+      );
+
+      if (operation.result) this.discounts.push(operation.coupon);
     } else {
       couponNameError.innerHTML = "Cupom inválido!";
     }
@@ -394,6 +564,11 @@ class Cart {
     this.update();
     this.showProducts();
     this.connectEventListeners();
+  }
+
+  resetCart() {
+    this.products.map(product => product.quantity = 0);
+    this.update();
   }
 }
 

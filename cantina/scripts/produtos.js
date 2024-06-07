@@ -34,10 +34,14 @@ class CouponManager {
   }
 
   applyDiscount(totalCart, couponName, couponNameError) {
-    let discount = 0;
     const coupon = this.coupons.find((coupon) => coupon.name === couponName);
 
     if (coupon) {
+      const returnValue = {
+        result: false,
+        coupon: coupon
+      };
+
       switch (coupon.usageRule.description) {
         case "greatest":
           if (totalCart < coupon.usageRule.minValue) {
@@ -45,18 +49,19 @@ class CouponManager {
               2
             )}Kz`;
           } else {
-            discount = coupon.discountPercentage;
+            returnValue.result = true;
             this.addCouponTopHistoric(coupon.name);
           }
           break;
         case "nothing":
-          discount = coupon.discountPercentage;
+          returnValue.result = true;
+          this.addCouponTopHistoric(coupon.name);
           break;
         default:
-          return discount;
+          returnValue.result = false;
       }
 
-      return discount;
+      return returnValue;
     }
   }
 
@@ -74,7 +79,6 @@ class Coupon {
       minValue: 0,
     };
     this.discountPercentage = options.discountPercentage || 5;
-    this.uses = 0;
   }
 }
 
