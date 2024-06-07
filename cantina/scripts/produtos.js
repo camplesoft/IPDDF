@@ -199,8 +199,8 @@ const products = [
       alt: "imagem de bolacha serranita",
     },
     [collections[5]],
-    200,
-    200
+    350,
+    450
   ),
   new Produto(
     "glucose",
@@ -211,16 +211,6 @@ const products = [
     [collections[5]],
     100,
     100
-  ),
-  new Produto(
-    "Serranitas",
-    {
-      src: "images/produtos/serranitas.webp",
-      alt: "imagem da bolacha serranitas",
-    },
-    [collections[5], collections[1]],
-    350,
-    450
   ),
 ];
 
