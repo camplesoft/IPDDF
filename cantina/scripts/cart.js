@@ -236,8 +236,6 @@ class Cart {
         });
 
         defaultPaymentGateways[0].checked = true;
-        
-
       });
 
       saleDataForm.addEventListener("submit", function (event) {
@@ -573,3 +571,9 @@ class Cart {
 }
 
 export { Cart };
+
+/**
+ * Título para a página de todos os produtos
+ * imagens cortadas
+ * 
+ */
