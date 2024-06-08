@@ -146,7 +146,7 @@ class Cart {
 
     if (
       Number(quantityOfProducts) === 0 &&
-      window.location.pathname === "/cantina/checkout.html"
+      window.location.pathname === "/ipddf/cantina/checkout.html"
     ) {
       window.location.assign(
         "http://camplesoft.github.io/ipddf/cantina/todos_produtos.html"
