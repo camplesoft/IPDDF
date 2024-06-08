@@ -6,29 +6,89 @@
 
 body {
   & main {
-    padding: 60px 10px;
     width: 100%;
     margin-bottom: 100px;
-    background-color: rgb(252, 247, 247);
+    background-color: white;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 
-    overflow: hidden;
+
+    & .container-filters {
+      position: sticky;
+      top: 0px;
+
+      height: 50px;
+      width: 100%;
+
+      display: grid;
+      align-content: center;
+      justify-content: center;
+
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 100%;
+
+      cursor: pointer;
+      z-index: 1;
+      background-color: white;
+
+      & > div {
+        height: 100%;
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border: 1px solid #dfdfdf;
+
+        &:last-child {
+          border-left: none;
+        }
+
+        & * {
+          font-size: 16px;
+          color: #282828;
+        }
+
+        & i {
+          margin: 0 5px;
+        }
+
+        &:hover {
+          background-color: #f8f8f8;
+          transition: all 0.3s ease-in-out;
+        }
+      }
+    }
+
+    & .title {
+      margin: 40px auto;
+      font-size: 20px;
+      color: #282828;
+    }
 
     & .container-products {
       width: 100%;
+      padding: 0px 10px;
 
       display: grid;
       gap: 10px;
       align-content: center;
       justify-content: center;
 
-      grid-template-columns: repeat(auto-fit, minmax(160px, 240px));
-      grid-template-rows: 400px;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 240px));
+      grid-auto-rows: 400px;
 
-      @media (min-width: 300px) and (max-width: 515px) {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 160px));
+      @media (min-width: 364px) and (max-width: 515px) {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 168px));
+        grid-auto-rows: 280px;
       }
 
       & .product {
+        overflow: hidden;
         position: relative;
 
         width: 100%;
@@ -43,6 +103,10 @@ body {
         grid-auto-columns: 100%;
         grid-template-rows: 250px 1fr;
 
+        @media (min-width: 364px) and (max-width: 515px) {
+          grid-template-rows: 1.4fr 1fr;
+        }
+
         cursor: pointer;
         border-radius: 8px;
         box-shadow: 0px 10px 5px rgba(0, 0, 0, 0.096);
@@ -51,6 +115,7 @@ body {
         & .product-img {
           width: 100%;
           height: 100%;
+          overflow: hidden;
 
           & img {
             width: 100%;
