@@ -4,7 +4,6 @@ let steps = 0;
 
 setInterval(function () {
   let widthAvailable = slider.offsetWidth;
-  console.log(widthAvailable);
   steps++;
 
   if (steps > images.length - 1) {

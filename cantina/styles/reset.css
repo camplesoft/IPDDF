@@ -94,3 +94,17 @@ body {
     }
   }
 }
+
+@keyframes btn-animation {
+  0% {
+    width: 79%;
+  }
+
+  70% {
+    width: 81%;
+  }
+
+  100% {
+    width: 80%;
+  }
+}

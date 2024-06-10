@@ -1,6 +1,7 @@
 "use strict";
 import { Notification } from "./message-box.js";
 import { CouponManager } from "./produtos.js";
+import { FilterManager } from "./filter-manager.js";
 
 class Cart {
   constructor(products, coupons) {
@@ -13,13 +14,14 @@ class Cart {
     this.saleCompleted = false;
     this.totalDiscount = 0;
     this.coupons = coupons;
-    this.originalProducts = products;
     this.availableDiscounts = coupons;
     this.messageBox = new Notification({
       duration: 2000,
       position: "bottom",
     });
     this.couponManager = new CouponManager();
+    this.filterManager = new FilterManager(products);
+    this.originalProducts = this.filterManager.getProducts();
 
     products.forEach((value, id) => {
       self.products.push({
@@ -45,7 +47,6 @@ class Cart {
       }
     };
 
-    this.interval = setInterval(this.update.bind(this), 1000);
     this.checkStorage();
     this.showProducts();
     this.connectEventListeners();
@@ -158,6 +159,7 @@ class Cart {
 
   connectEventListeners() {
     const saleDataForm = document.getElementById("formulario");
+    const btnApplyFilters = document.getElementById("btn-apply-filters");
     const btnCheckout = document.getElementById("checkout-button");
     const btnsSkipToCheckout = [
       ...document.querySelectorAll(".btns-skip-to-checkout"),
@@ -168,10 +170,13 @@ class Cart {
     ];
     const quantityButtons = [...document.querySelectorAll(".quantity-buttons")];
     const quantityInputs = [...document.querySelectorAll(".input-quantity")];
+    const sortOptions = [...document.querySelectorAll('.sort-option')];
 
     btnsSkipToCheckout.forEach((btn) => {
       btn.addEventListener("click", () => {
-        window.location.assign("http://camplesoft.github.io/ipddf/cantina/checkout.html");
+        window.location.assign(
+          "http://camplesoft.github.io/ipddf/cantina/checkout.html"
+        );
       });
     });
 
@@ -230,9 +235,9 @@ class Cart {
 
       btnCheckout.addEventListener("click", function () {
         const defaultPaymentGateways = [
-          ...document.querySelectorAll('.payment-gateways')
+          ...document.querySelectorAll(".payment-gateways"),
         ].filter((paymentGateway) => {
-          return paymentGateway.id === 'cash';
+          return paymentGateway.id === "cash";
         });
 
         defaultPaymentGateways[0].checked = true;
@@ -257,7 +262,9 @@ class Cart {
             } else {
               self.saveDetailsPurchase();
               self.resetCart();
-              window.location.assign('http://camplesoft.github.io/ipddf/cantina/order-confirmation-page.html');
+              window.location.assign(
+                "http://camplesoft.github.io/ipddf/cantina/order-confirmation-page.html"
+              );
             }
           })
           .catch((error) => {
@@ -268,37 +275,130 @@ class Cart {
           });
       });
     }
+
+    if (btnApplyFilters) {
+      btnApplyFilters.addEventListener("click", () => {
+        this.filterManager.filters = [];
+
+        const collectionsSelected = [
+          ...document.querySelectorAll(".collection-filters"),
+        ].filter((filter) => {
+          return filter.checked;
+        });
+
+        const maxPriceFilter = document.getElementById("max-price-filter");
+        const minPriceFilter = document.getElementById("min-price-filter");
+
+        const collectionFilter = (product) => {
+          return collectionsSelected.some((collection) => {
+            return product.collections.includes(collection.name);
+          });
+        };
+
+        const priceFilter = (product) => {
+          console.log("price: " + product.currentPrice);
+          console.log("min: " + minPriceFilter.value);
+          console.log("max: " + maxPriceFilter.value);
+
+          return (
+            product.currentPrice >= minPriceFilter.value &&
+            product.currentPrice <= maxPriceFilter.value
+          );
+        };
+
+        if (collectionsSelected.length === 0) {
+          this.filterManager.removeFilter(collectionFilter);
+          this.update();
+          this.showProducts();
+        } else {
+          this.filterManager.addFilter(collectionFilter);
+          this.update();
+          this.showProducts();
+        }
+
+        if (minPriceFilter.value !== "" || maxPriceFilter.value !== "") {
+          const biggestPrice = this.originalProducts.reduce(
+            (maxProduct, currentProduct) => {
+              return currentProduct.currentPrice > maxProduct.currentPrice
+                ? currentProduct
+                : maxProduct;
+            },
+            this.originalProducts[0]
+          ).currentPrice;
+
+          minPriceFilter.value =
+            minPriceFilter.value === "" || minPriceFilter.value < 0 ? 0 : minPriceFilter.value;
+
+          maxPriceFilter.value =
+            maxPriceFilter.value === "" || maxPriceFilter.value < 0 ? biggestPrice : maxPriceFilter.value;
+
+          if (Number(minPriceFilter.value) >= Number(maxPriceFilter.value)) {
+            if (Number(minPriceFilter.value) === biggestPrice) {
+              minPriceFilter.value -= 1;
+            }
+            maxPriceFilter.value = Number(minPriceFilter.value) + 1;
+          }
+          
+          if (Number(maxPriceFilter.value) > biggestPrice) {
+            maxPriceFilter.value = biggestPrice;
+          }
+
+          this.filterManager.addFilter(priceFilter);
+          this.update();
+          this.showProducts();
+        } else {
+          this.filterManager.removeFilter(priceFilter);
+          this.update();
+          this.showProducts();
+        }
+      });
+    }
+
+    if (sortOptions) {
+      sortOptions.forEach((option) => {
+        option.addEventListener('click', (element) => {
+          this.filterManager.sort(element.target.id);
+          this.update();
+          this.showProducts();
+        });
+      });
+    }
   }
 
   saveDetailsPurchase() {
     const timestampPurchase = Date.now();
     const couponsAdded = this.couponManager.couponsAdded;
-    const cartJson = JSON.parse(localStorage.getItem(
-      "cart-cantina-ipddf-powered-by-camplesoft-" + this.currentYear
-    ));
+    const cartJson = JSON.parse(
+      localStorage.getItem(
+        "cart-cantina-ipddf-powered-by-camplesoft-" + this.currentYear
+      )
+    );
     const totalDiscount = this.totalDiscount;
     const totalCart = this.total;
     const paymentGateways = [];
-    [...document.querySelectorAll(".payment-gateways")].forEach((paymentGateway) => {
-      if (paymentGateway.checked)
-        paymentGateways.push(paymentGateway.id);
-    });
+    [...document.querySelectorAll(".payment-gateways")].forEach(
+      (paymentGateway) => {
+        if (paymentGateway.checked) paymentGateways.push(paymentGateway.id);
+      }
+    );
     const clientName = document.getElementById("name").value;
     const clientEmail = document.getElementById("email").value;
     const studentNumber = document.getElementById("numero-de-estudante").value;
 
-
-    localStorage.setItem('purchase-details-'+this.currentYear, JSON.stringify({
-      timestampPurchase: timestampPurchase,
-      couponsAdded: couponsAdded,
-      cartJson: cartJson,
-      totalDiscount: totalDiscount,
-      totalCart: totalCart,
-      paymentGateways: paymentGateways,
-      clientName: clientName,
-      clientEmail: clientEmail,
-      studentNumber: studentNumber
-    }));
+    localStorage.setItem(
+      "purchase-details-" + this.currentYear,
+      JSON.stringify({
+        timestampPurchase: timestampPurchase,
+        couponsAdded: couponsAdded,
+        cartJson: cartJson,
+        totalDiscount: totalDiscount,
+        totalCart: totalCart,
+        paymentGateways: paymentGateways,
+        clientName: clientName,
+        clientEmail: clientEmail,
+        studentNumber: studentNumber,
+      })
+    );
   }
 
   showProducts() {
@@ -310,38 +410,39 @@ class Cart {
 
     if (productsContainer1) {
       productsContainer1.innerHTML = "";
+      this.originalProducts = this.filterManager.getProducts();
       this.originalProducts.forEach(function (product, id) {
         productsContainer1.innerHTML += `
     
-      <div class="product" id="${id}">
-        <span class="discount" style=\"${
-          Number(product.discount) <= 0 ? "display: none;" : ""
-        }\">
-          - ${Number(product.discount).toFixed(0)}%
-        </span>
-  
-        <div class="product-img">
-          <img src="${product.img.src}" alt="${product.img.alt}" />
-        </div>
-  
-        <div class="product-description">
-          <h2 class="product-name">${product.name}</h2>
-  
-          <div class="price">
-            <span class="current-price">KZ ${Number(
-              product.currentPrice
-            ).toFixed(2)}</span>
-            <span class="comparison-price" style=\"${
-              Number(product.pastPrice) == Number(product.currentPrice)
-                ? "display: none;"
-                : ""
-            }\">KZ ${Number(product.pastPrice).toFixed(2)}</span>
+        <div class="product" id="${id}">
+          <span class="discount" style=\"${
+            Number(product.discount) <= 0 ? "display: none;" : ""
+          }\">
+            - ${Number(product.discount).toFixed(0)}%
+          </span>
+    
+          <div class="product-img">
+            <img src="${product.img.src}" alt="${product.img.alt}" />
           </div>
-  
-          <i class="fa-solid fa-plus btn-add-product"></i>
+    
+          <div class="product-description">
+            <h2 class="product-name">${product.name}</h2>
+    
+            <div class="price">
+              <span class="current-price">KZ ${Number(
+                product.currentPrice
+              ).toFixed(2)}</span>
+              <span class="comparison-price" style=\"${
+                Number(product.pastPrice) == Number(product.currentPrice)
+                  ? "display: none;"
+                  : ""
+              }\">KZ ${Number(product.pastPrice).toFixed(2)}</span>
+            </div>
+    
+            <i class="fa-solid fa-plus btn-add-product"></i>
+          </div>
+          
         </div>
-        
-      </div>
     
       `;
       });
@@ -425,31 +526,37 @@ class Cart {
       productsContainer3.innerHTML = "";
 
       const detailsPurchase = JSON.parse(
-        localStorage.getItem("purchase-details-"+this.currentYear)
+        localStorage.getItem("purchase-details-" + this.currentYear)
       );
 
       const fillTable = () => {
         const date = new Date(detailsPurchase.timestampPurchase);
-        const studentNumber = document.getElementById('student-number');
-        const clientName = document.getElementById('fullname');
-        const clientEmail = document.getElementById('email');
-        const totalDiscount = document.getElementById('total-discount-of-coupons');
-        const paymentGateways = document.getElementById('payment-gateways');
-        const purchaseDate = document.getElementById('purchase-date');
-        const formattedDate = date.toLocaleString('pt-BR');
-        const totalCart = document.getElementById('total-of-cart');
+        const studentNumber = document.getElementById("student-number");
+        const clientName = document.getElementById("fullname");
+        const clientEmail = document.getElementById("email");
+        const totalDiscount = document.getElementById(
+          "total-discount-of-coupons"
+        );
+        const paymentGateways = document.getElementById("payment-gateways");
+        const purchaseDate = document.getElementById("purchase-date");
+        const formattedDate = date.toLocaleString("pt-BR");
+        const totalCart = document.getElementById("total-of-cart");
 
         studentNumber.innerHTML = detailsPurchase.studentNumber;
         clientName.innerHTML = detailsPurchase.clientName;
         clientEmail.innerHTML = detailsPurchase.clientEmail;
-        totalDiscount.innerHTML = Number(detailsPurchase.totalDiscount).toFixed(2) + " Kz";
+        totalDiscount.innerHTML =
+          Number(detailsPurchase.totalDiscount).toFixed(2) + " Kz";
         paymentGateways.innerHTML = detailsPurchase.paymentGateways;
         purchaseDate.innerHTML = formattedDate;
-        totalCart.innerHTML = Number(detailsPurchase.totalCart).toFixed(2) + " Kz";
-      }
+        totalCart.innerHTML =
+          Number(detailsPurchase.totalCart).toFixed(2) + " Kz";
+      };
       fillTable();
 
-      const productCounters = [...document.querySelectorAll(".quantity-of-purchased-products")];
+      const productCounters = [
+        ...document.querySelectorAll(".quantity-of-purchased-products"),
+      ];
       const products = detailsPurchase.cartJson;
 
       const cart = products
@@ -509,11 +616,19 @@ class Cart {
         "cart-cantina-ipddf-powered-by-camplesoft-" + this.currentYear
       )
     ) {
-      this.products = JSON.parse(
+      const storageProducts = JSON.parse(
         localStorage.getItem(
           "cart-cantina-ipddf-powered-by-camplesoft-" + this.currentYear
         )
       );
+
+      this.products.map((product) => {
+        storageProducts.map((productStorage) => {
+          if (product.name === productStorage.name) {
+            product.quantity = productStorage.quantity;
+          }
+        });
+      });
       this.update();
     }
   }
@@ -565,15 +680,13 @@ class Cart {
   }
 
   resetCart() {
-    this.products.map(product => product.quantity = 0);
+    this.products.map((product) => (product.quantity = 0));
+    this.products = this.originalProducts();
+    localStorage.removeItem(
+      "cart-cantina-ipddf-powered-by-camplesoft-" + this.currentYear
+    );
     this.update();
   }
 }
 
 export { Cart };
-
-/**
- * Título para a página de todos os produtos
- * imagens cortadas
- * 
- */

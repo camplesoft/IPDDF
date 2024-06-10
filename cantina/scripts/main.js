@@ -1,13 +1,15 @@
 import { Header, Footer } from "../../scripts/header-footer-store.js";
-import { animation1 } from "./animações/search-bar.js";
-import { products, collections, coupons } from "./produtos.js";
-import { Cart } from "./cart.js";
+import { animation1 } from "./packages/animations/search-bar.js";
+import { products, collections, coupons } from "./packages/produtos.js";
+import { Cart } from "./packages/cart.js";
+import { fnCapitalize } from "./packages/text-formation.js";
 
 connectEventListeners();
 insertHeaderAndFooter();
+insertFilters();
 performSearchButtonAnimation();
 
-// HEADER E FOOTER
+// INSERTS
 function insertHeaderAndFooter() {
   document.head.innerHTML +=
     '<link rel="stylesheet" href="../styles/style_header_and_footer.css">';
@@ -44,6 +46,28 @@ function connectEventListeners() {
     document.querySelector(".head-resume-cart"),
   ];
 
+  const btnShowFilterOptions = document.getElementById("btn-show-filter-options");
+  const btnShowSortOptions = document.getElementById("btn-show-sort-options");
+
+  const shadowFilters = document.querySelector(".shadow.filters");
+  const btnCloseFilterOptions = [
+    ...document.querySelectorAll(".btn-close-filter-options"),
+  ];
+  const sortOptions = [...document.querySelectorAll('.sort-option')]
+  const containerFilterOptions = document.querySelector(
+    ".container-filters-options"
+  );
+  const containerSortOptions = document.querySelector(
+    ".container-sort-options"
+  );
+  const btnApplyFilters = document.getElementById("btn-apply-filters");
+
+  if (btnApplyFilters) {
+    btnApplyFilters.addEventListener("click", () => {
+      shadowFilters.click();
+    });
+  }
+
   if (elementsMinimizeResume) {
     elementsMinimizeResume.forEach((element) => {
       if (element) element.addEventListener("click", minimizeResume);
@@ -57,9 +81,81 @@ function connectEventListeners() {
       }
     }
   }
+
+  if (shadowFilters) {
+    shadowFilters.addEventListener("click", () => {
+      requestAnimationFrame(() => {
+        containerFilterOptions.style.left = "-100vw";
+      });
+
+      requestAnimationFrame(() => {
+        containerSortOptions.style.bottom = "-100vh";
+      });
+
+      setTimeout(() => {
+        shadowFilters.style.display = "none";
+      }, 400);
+    });
+
+    const childShadow = [...shadowFilters.children];
+    childShadow.forEach((child) => {
+      child.addEventListener("click", (event) => event.stopPropagation());
+    });
+  }
+
+  if (btnCloseFilterOptions.length > 0) {
+    btnCloseFilterOptions.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        shadowFilters.click();
+      });
+    });
+  }
+
+  if (btnShowFilterOptions) {
+    btnShowFilterOptions.addEventListener('click', () => {
+      shadowFilters.style.display = "flex";
+      showFilterAndSortOptions('btn-show-filter-options');
+    });
+  }
+
+  if (btnShowSortOptions) {
+    btnShowSortOptions.addEventListener('click', () => {
+      shadowFilters.style.display = "flex";
+      showFilterAndSortOptions('btn-show-sort-options');
+    });
+  }
+
+  if (sortOptions) {
+    sortOptions.forEach((option) => {
+      option.addEventListener("click", () => {
+        shadowFilters.click();
+      });
+    });
+  }
 }
 
-// ANIMAÇÕES
+function insertFilters() {
+  const collectionFilterContainer = document.getElementById(
+    "collection-filter-container"
+  );
+
+  if (collectionFilterContainer) {
+    collectionFilterContainer.innerHTML = "";
+
+    collections.forEach((collection) => {
+      collectionFilterContainer.innerHTML += `
+      
+            <li class="input-field">
+              <input type="checkbox" name="${collection}" id="${collection}" class="collection-filters" />
+              <label for="${collection}">${fnCapitalize(collection)}</label>
+            </li>
+      
+      `;
+    });
+  }
+}
+
+// ANIMATIONS
 function performSearchButtonAnimation() {
   const sugestionsToPlaceholder = [];
 
@@ -78,6 +174,29 @@ function minimizeResume() {
   const divResumeCart = document.querySelector(".resume-cart");
 
   divResumeCart.classList.toggle("minimized");
+}
+
+function showFilterAndSortOptions(btn) {
+  switch (btn) {
+    case "btn-show-filter-options":
+      const containerFilterOptions = document.querySelector(
+        ".container-filters-options"
+      );
+      requestAnimationFrame(() => {
+        containerFilterOptions.style.left = "0";
+      });
+      break;
+    case "btn-show-sort-options":
+      const containerSortOptions = document.querySelector(
+        ".container-sort-options"
+      );
+      requestAnimationFrame(() => {
+        containerSortOptions.style.bottom = "0";
+      });
+      break;
+    default:
+      console.log("btn desconhecido");
+  }
 }
 
 const carrinho = new Cart(products, coupons);

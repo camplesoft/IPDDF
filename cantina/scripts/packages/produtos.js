@@ -104,19 +104,19 @@ const coupons = [
 ];
 
 const collections = [
-  "Bebidas", // 0
-  "Mais vendidos", // 1
-  "Pastelaria", // 2
-  "Novidades", // 3
-  "Fritos", // 4
-  "Bolachas", // 5
+  "bebidas", // 0
+  "mais vendidos", // 1
+  "pastelaria", // 2
+  "novidades", // 3
+  "fritos", // 4
+  "bolachas", // 5
 ];
 
 const products = [
   new Produto(
     "banana frita",
     { src: "images/produtos/banana-frita.png", alt: "imagem de banana" },
-    [collections[4]],
+    [collections[4], collections[1]],
     100,
     150
   ),
@@ -188,7 +188,7 @@ const products = [
   new Produto(
     "bolacha renata",
     { src: "images/produtos/agua-e-sal.png", alt: "imagem de Bolacha Renata" },
-    [collections[1], collections[0]],
+    [collections[5], collections[1]],
     600,
     750
   ),

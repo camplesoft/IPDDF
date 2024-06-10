@@ -20,24 +20,84 @@
     ></script>
   </head>
   <body>
-    
     <main>
       <div class="container-filters">
-        <div>
+        <div id="btn-show-filter-options">
           <i class="fa-solid fa-filter"></i>
           <span>Filtros</span>
         </div>
-        <div>
+        <div id="btn-show-sort-options">
           <span>Ordenar por</span>
           <i class="fa-solid fa-angle-down"></i>
         </div>
       </div>
 
-      <h2 class="title">Todos Produtos</h2>
-      
+      <h2 id="result-title">Todos Produtos</h2>
+
       <div class="container-products">
         <!-- POWERED BY CAMPLESOFT -->
       </div>
     </main>
+
+    <div class="shadow filters">
+      <div class="container-sort-options">
+        <div class="head">
+          <span>Ordenar por</span>
+          <i class="fa-solid fa-close btn-close-filter-options"></i>
+        </div>
+        <ul>
+          <li class="sort-option" id="highlighted">Em destaque</li>
+          <li class="sort-option" id="A-Z">Ordem alfabética, A-Z</li>
+          <li class="sort-option" id="Z-A">Ordem alfabética, Z-A</li>
+          <li class="sort-option" id="price-asc">Preço, ordem crescente</li>
+          <li class="sort-option" id="price-desc">Preço, ordem decrescente</li>
+        </ul>
+      </div>
+
+      <div class="container-filters-options">
+        <div class="head">
+          <span>Filtros</span>
+          <i class="fa-solid fa-close btn-close-filter-options"></i>
+        </div>
+
+        <div class="filters">
+          <div class="filter">
+            <span class="filter-title">Coleções</span>
+            <ul id="collection-filter-container">
+              
+            </ul>
+          </div>
+
+          <div class="filter price-filter">
+            <span class="filter-title">Preço</span>
+            <div class="container-input-field">
+              <div class="input-field">
+                <span>Kz</span>
+                <input
+                  type="number"
+                  min="0"
+                  name="min-price-filter"
+                  id="min-price-filter"
+                  placeholder="0"
+                />
+              </div>
+              <span>até</span>
+              <div class="input-field">
+                <span>Kz</span>
+                <input
+                  type="number"
+                  min="0"
+                  name="max-price-filter"
+                  id="max-price-filter"
+                  placeholder="1000"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button id="btn-apply-filters">Aplicar Filtros</button>
+      </div>
+    </div>
   </body>
 </html>
