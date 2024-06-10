@@ -277,6 +277,8 @@ class Cart {
     }
 
     if (btnApplyFilters) {
+      const resultTitle = document.getElementById('result-title');
+
       btnApplyFilters.addEventListener("click", () => {
         this.filterManager.filters = [];
 
@@ -307,10 +309,13 @@ class Cart {
         };
 
         if (collectionsSelected.length === 0) {
+          resultTitle.innerHTML = 'Todos Produtos';
           this.filterManager.removeFilter(collectionFilter);
           this.update();
           this.showProducts();
         } else {
+          
+          resultTitle.innerHTML = 'Resultado da pesquisa filtrada';
           this.filterManager.addFilter(collectionFilter);
           this.update();
           this.showProducts();

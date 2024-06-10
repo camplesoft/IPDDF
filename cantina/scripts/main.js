@@ -46,14 +46,16 @@ function connectEventListeners() {
     document.querySelector(".head-resume-cart"),
   ];
 
-  const btnShowFilterOptions = document.getElementById("btn-show-filter-options");
+  const btnShowFilterOptions = document.getElementById(
+    "btn-show-filter-options"
+  );
   const btnShowSortOptions = document.getElementById("btn-show-sort-options");
 
   const shadowFilters = document.querySelector(".shadow.filters");
   const btnCloseFilterOptions = [
     ...document.querySelectorAll(".btn-close-filter-options"),
   ];
-  const sortOptions = [...document.querySelectorAll('.sort-option')]
+  const sortOptions = [...document.querySelectorAll(".sort-option")];
   const containerFilterOptions = document.querySelector(
     ".container-filters-options"
   );
@@ -112,16 +114,16 @@ function connectEventListeners() {
   }
 
   if (btnShowFilterOptions) {
-    btnShowFilterOptions.addEventListener('click', () => {
+    btnShowFilterOptions.addEventListener("click", () => {
       shadowFilters.style.display = "flex";
-      showFilterAndSortOptions('btn-show-filter-options');
+      showFilterAndSortOptions("btn-show-filter-options");
     });
   }
 
   if (btnShowSortOptions) {
-    btnShowSortOptions.addEventListener('click', () => {
+    btnShowSortOptions.addEventListener("click", () => {
       shadowFilters.style.display = "flex";
-      showFilterAndSortOptions('btn-show-sort-options');
+      showFilterAndSortOptions("btn-show-sort-options");
     });
   }
 
@@ -200,3 +202,13 @@ function showFilterAndSortOptions(btn) {
 }
 
 const carrinho = new Cart(products, coupons);
+
+/*
+
+  dar funcionalidade aos cards da página inicial da cantina
+
+  dar funcionalidade a barra de pesquisa
+
+  criar um grupo de produtos dinâmicos em forma de carrossel, para poder apresentar produtos como sugestão e também para colocar na página inicial
+
+*/
