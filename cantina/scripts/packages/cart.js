@@ -371,6 +371,7 @@ class Cart {
           this.filterManager.sort(element.target.id);
           this.update();
           this.showProducts();
+          this.connectEventListeners();
         });
       });
     }
