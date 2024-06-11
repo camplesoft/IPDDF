@@ -170,13 +170,11 @@ class Cart {
     ];
     const quantityButtons = [...document.querySelectorAll(".quantity-buttons")];
     const quantityInputs = [...document.querySelectorAll(".input-quantity")];
-    const sortOptions = [...document.querySelectorAll('.sort-option')];
+    const sortOptions = [...document.querySelectorAll(".sort-option")];
 
     btnsSkipToCheckout.forEach((btn) => {
       btn.addEventListener("click", () => {
-        window.location.assign(
-          "http://camplesoft.github.io/ipddf/cantina/checkout.html"
-        );
+        window.location.assign("http://camplesoft.github.io/ipddf/cantina/checkout.html");
       });
     });
 
@@ -255,15 +253,16 @@ class Cart {
           },
         })
           .then((response) => {
-            if (!response.ok) {
-              alert(
-                "Houve um problema ao realizar a compra. Por favor atualize a sua página para continuar!"
-              );
-            } else {
+            console.log(response.ok);
+            if (response.ok) {
               self.saveDetailsPurchase();
               self.resetCart();
               window.location.assign(
                 "http://camplesoft.github.io/ipddf/cantina/order-confirmation-page.html"
+              );
+            } else {
+              alert(
+                "Houve um problema ao realizar a compra. Por favor atualize a sua página para continuar!"
               );
             }
           })
@@ -277,7 +276,7 @@ class Cart {
     }
 
     if (btnApplyFilters) {
-      const resultTitle = document.getElementById('result-title');
+      const resultTitle = document.getElementById("result-title");
 
       btnApplyFilters.addEventListener("click", () => {
         this.filterManager.filters = [];
@@ -309,13 +308,13 @@ class Cart {
         };
 
         if (collectionsSelected.length === 0) {
-          resultTitle.innerHTML = 'Todos Produtos';
+          resultTitle.innerHTML = "Todos Produtos";
           this.filterManager.removeFilter(collectionFilter);
           this.update();
           this.showProducts();
           this.connectEventListeners();
         } else {
-          resultTitle.innerHTML = 'Resultado da pesquisa filtrada';
+          resultTitle.innerHTML = "Resultado da pesquisa filtrada";
           this.filterManager.addFilter(collectionFilter);
           this.update();
           this.showProducts();
@@ -333,10 +332,14 @@ class Cart {
           ).currentPrice;
 
           minPriceFilter.value =
-            minPriceFilter.value === "" || minPriceFilter.value < 0 ? 0 : minPriceFilter.value;
+            minPriceFilter.value === "" || minPriceFilter.value < 0
+              ? 0
+              : minPriceFilter.value;
 
           maxPriceFilter.value =
-            maxPriceFilter.value === "" || maxPriceFilter.value < 0 ? biggestPrice : maxPriceFilter.value;
+            maxPriceFilter.value === "" || maxPriceFilter.value < 0
+              ? biggestPrice
+              : maxPriceFilter.value;
 
           if (Number(minPriceFilter.value) >= Number(maxPriceFilter.value)) {
             if (Number(minPriceFilter.value) === biggestPrice) {
@@ -344,7 +347,7 @@ class Cart {
             }
             maxPriceFilter.value = Number(minPriceFilter.value) + 1;
           }
-          
+
           if (Number(maxPriceFilter.value) > biggestPrice) {
             maxPriceFilter.value = biggestPrice;
           }
@@ -364,7 +367,7 @@ class Cart {
 
     if (sortOptions) {
       sortOptions.forEach((option) => {
-        option.addEventListener('click', (element) => {
+        option.addEventListener("click", (element) => {
           this.filterManager.sort(element.target.id);
           this.update();
           this.showProducts();
@@ -688,11 +691,20 @@ class Cart {
   }
 
   resetCart() {
-    this.products.map((product) => (product.quantity = 0));
-    this.products = this.originalProducts();
-    localStorage.removeItem(
-      "cart-cantina-ipddf-powered-by-camplesoft-" + this.currentYear
-    );
+    this.products.map((product) => {
+      product.quantity = 0;
+    });
+
+    if (
+      localStorage.getItem(
+        "cart-cantina-ipddf-powered-by-camplesoft-" + this.currentYear
+      )
+    ) {
+      localStorage.removeItem(
+        "cart-cantina-ipddf-powered-by-camplesoft-" + this.currentYear
+      );
+    }
+
     this.update();
   }
 }

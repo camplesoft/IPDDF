@@ -82,11 +82,15 @@ body {
       position: absolute;
       top: 0;
       left: -100vw;
-      transition: left .5s ease-in-out;
-      
+      transition: left 0.5s ease-in-out;
+
       width: 58vw;
       max-width: 395px;
       height: 100%;
+
+      @media (max-width: 678px) {
+        width: 86vw;
+      }
 
       display: flex;
       gap: 10px;
@@ -212,7 +216,7 @@ body {
       border-radius: 6px;
 
       &:active {
-        animation: btn-animation .1s ease-in;
+        animation: btn-animation 0.1s ease-in;
       }
     }
   }
