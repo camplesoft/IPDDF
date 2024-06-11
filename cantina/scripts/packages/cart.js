@@ -247,7 +247,7 @@ class Cart {
         event.preventDefault();
         let formData = new FormData(saleDataForm);
 
-        fetch("https://formspree.io/f/xoqgbdov", {
+        fetch("https://formspree.io/f/xzbnoqno", {
           method: "POST",
           body: formData,
           headers: {
