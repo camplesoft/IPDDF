@@ -313,12 +313,13 @@ class Cart {
           this.filterManager.removeFilter(collectionFilter);
           this.update();
           this.showProducts();
+          this.connectEventListeners();
         } else {
-          
           resultTitle.innerHTML = 'Resultado da pesquisa filtrada';
           this.filterManager.addFilter(collectionFilter);
           this.update();
           this.showProducts();
+          this.connectEventListeners();
         }
 
         if (minPriceFilter.value !== "" || maxPriceFilter.value !== "") {
@@ -351,10 +352,12 @@ class Cart {
           this.filterManager.addFilter(priceFilter);
           this.update();
           this.showProducts();
+          this.connectEventListeners();
         } else {
           this.filterManager.removeFilter(priceFilter);
           this.update();
           this.showProducts();
+          this.connectEventListeners();
         }
       });
     }
