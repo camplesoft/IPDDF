@@ -158,6 +158,7 @@ class Cart {
   }
 
   connectEventListeners() {
+    document.addEventListener("load", () => this.update());
     const saleDataForm = document.getElementById("formulario");
     const btnApplyFilters = document.getElementById("btn-apply-filters");
     const btnCheckout = document.getElementById("checkout-button");
@@ -174,7 +175,9 @@ class Cart {
 
     btnsSkipToCheckout.forEach((btn) => {
       btn.addEventListener("click", () => {
-        window.location.assign("http://camplesoft.github.io/ipddf/cantina/checkout.html");
+        window.location.assign(
+          "http://camplesoft.github.io/ipddf/cantina/checkout.html"
+        );
       });
     });
 
@@ -711,8 +714,6 @@ class Cart {
 
 export { Cart };
 
-
 /*
     como remover uma url do histórico do navegador com js.
-
 */
