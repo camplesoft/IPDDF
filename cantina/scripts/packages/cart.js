@@ -253,11 +253,10 @@ class Cart {
           },
         })
           .then((response) => {
-            console.log(response.ok);
             if (response.ok) {
               self.saveDetailsPurchase();
               self.resetCart();
-              window.location.assign(
+              window.location.replace(
                 "http://camplesoft.github.io/ipddf/cantina/order-confirmation-page.html"
               );
             } else {
@@ -711,3 +710,9 @@ class Cart {
 }
 
 export { Cart };
+
+
+/*
+    como remover uma url do histórico do navegador com js.
+
+*/
